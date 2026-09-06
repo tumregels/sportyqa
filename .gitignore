@@ -6,5 +6,20 @@ dist/
 wheels/
 *.egg-info
 
+# ruff
+.ruff_cache/
+
+# env
+.env
+
+# pytest
+.pytest_cache/
+
 # Virtual environments
 .venv
+
+# intermediate test results
+allure-results/
+allure-report/
+junit.xml
+
