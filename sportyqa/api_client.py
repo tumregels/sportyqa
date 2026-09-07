@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC
+from datetime import UTC, datetime
 from typing import Any
 
 import requests
@@ -85,11 +85,9 @@ class ApiClient:
         status, payload = self._request("POST", "/api/place-bet", json=body)
         return status, payload
 
-    # -- fixtures ------------------------------------------------------------
     def upcoming_match(self) -> dict[str, Any] | None:
         """Return the first fixture that kicks off on/after today (match lists
         are dominated by PAST fixtures - see bug report BUG-07)."""
-        from datetime import datetime
 
         today = datetime.now(UTC).date().isoformat()
         for m in self.get_matches():
