@@ -16,8 +16,8 @@ from . import config
 def new_driver(options: Options | None = None) -> webdriver.Chrome:
     """Start Chrome; Selenium Manager provisions the matching chromedriver."""
     opts = options or Options()
-    # Headless so the suite is CI-friendly; drop the flag for a local visual run.
-    opts.add_argument("--headless=new")
+    if config.HEADLESS:
+        opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
     opts.add_argument("--window-size=1366,768")  # most common laptop

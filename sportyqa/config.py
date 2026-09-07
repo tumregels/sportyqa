@@ -29,6 +29,9 @@ UI_TIMEOUT_SECONDS: float = 10.0
 # Seconds to let a balance reset/persist settle before reading it back.
 SETTLE_SECONDS: float = 1.2
 
+# Run Chrome headless (set HEADLESS=false for a visible run).
+HEADLESS: bool = os.getenv("HEADLESS", "true") == "true"
+
 # Money/validation constants from the feature spec / OpenAPI.
 STAKE_MIN = 1.00
 STAKE_MAX = 100.00
