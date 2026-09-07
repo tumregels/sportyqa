@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug tests: current file",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["${file}", "-v"],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "HEADLESS": "${input:headlessMode}"
+            }
+        },
+        {
+            "name": "Debug tests: all",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["tests", "-v"],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "HEADLESS": "${input:headlessMode}"
+            }
+        },
+        {
+            "name": "Debug UI tests",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["tests/test_ui_place_bet.py", "-v"],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "HEADLESS": "${input:headlessMode}"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "headlessMode",
+            "type": "pickString",
+            "description": "Run Chrome headless or visible?",
+            "options": ["true", "false"],
+            "default": "false"
+        }
+    ]
+}
