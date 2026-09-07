@@ -2,7 +2,8 @@
 
 ## setup
 
-Install `uv` python package and project manager form [here](https://docs.astral.sh/uv/getting-started/installation/).
+Install the `uv` python package and project manager from the
+[uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 Execute the following two commands from the terminal
 
