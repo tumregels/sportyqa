@@ -23,3 +23,5 @@ allure-results/
 allure-report/
 junit.xml
 
+# mac
+.DS_Store
