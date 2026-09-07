@@ -1,4 +1,5 @@
 """Invoke tasks for sportyqa: lint, test, and allure reporting."""
+
 from __future__ import annotations
 
 import shutil
@@ -14,6 +15,18 @@ JUNIT_XML = "junit.xml"
 def install(c):
     """Sync dependencies via uv. Will install .venv if missing."""
     c.run("uv sync")
+
+
+@task
+def precommit_setup(c):
+    """Install the pre-commit git hook."""
+    c.run("uv run pre-commit install")
+
+
+@task
+def precommit_update(c):
+    """Update pre-commit hooks to their latest pinned revisions."""
+    c.run("uv run pre-commit autoupdate")
 
 
 @task(help={"fix": "apply autofixes for lint violations"})
@@ -69,7 +82,9 @@ def ui(c, junit=False):
 def report(c, serve=False):
     """Generate (and optionally serve) the Allure HTML report from results."""
     if not shutil.which("allure"):
-        print("allure CLI not found on PATH; skipping report generation (brew install allure).")
+        print(
+            "allure CLI not found on PATH; skipping report generation (brew install allure)."
+        )
         return
     if serve:
         c.run(f"allure serve {ALLURE_RESULTS}")
@@ -80,7 +95,9 @@ def report(c, serve=False):
 @task
 def clean(c):
     """Remove test/report artifacts and Python caches."""
-    c.run(f"rm -rf {ALLURE_RESULTS} {ALLURE_REPORT} {JUNIT_XML} .pytest_cache .ruff_cache")
+    c.run(
+        f"rm -rf {ALLURE_RESULTS} {ALLURE_REPORT} {JUNIT_XML} .pytest_cache .ruff_cache"
+    )
     c.run("find . -type d -name __pycache__ -not -path './.venv/*' -exec rm -rf {} +")
 
 
