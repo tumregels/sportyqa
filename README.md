@@ -20,3 +20,9 @@ All the project is configured now. To execute the tests
 To see all available tasks run
 
     inv --list
+
+## reports
+
+- [Test Plan](reports/TEST_PLAN.md)
+- [Strategy](reports/STRATEGY.md)
+- [Bug Reports](reports/BUG_REPORTS.md)
