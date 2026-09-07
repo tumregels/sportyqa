@@ -335,6 +335,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-check"
+version = "2.9.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5c/48/78fb4d9f95e383e81d2a74db1a56fd2f90947cd08e0d585356830e8e2fe8/pytest_check-2.9.1.tar.gz", hash = "sha256:2d8c9f1fe5cceb0b41c480e1454e95e9ed6a3a534bf2c7e3e0f39167b11cf88b", size = 41394, upload-time = "2026-08-01T06:28:06.417Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6b/c5/6c9809d27ecc279d2d4591f1317eb099b52fa9a93998fdcb78bc8f614a4f/pytest_check-2.9.1-py3-none-any.whl", hash = "sha256:9c745f50532c2f650f3d0afab78810aa9e0ca25b8ac60986e1590d8819c04562", size = 21350, upload-time = "2026-08-01T06:28:05.191Z" },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.2.3"
 source = { registry = "https://pypi.org/simple" }
@@ -426,6 +439,7 @@ dependencies = [
     { name = "allure-pytest" },
     { name = "invoke" },
     { name = "pytest" },
+    { name = "pytest-check" },
     { name = "python-dotenv" },
     { name = "requests" },
     { name = "ruff" },
@@ -437,6 +451,7 @@ requires-dist = [
     { name = "allure-pytest", specifier = ">=2.16.0" },
     { name = "invoke", specifier = ">=3.0.3" },
     { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pytest-check", specifier = ">=2.9.1" },
     { name = "python-dotenv", specifier = ">=1.2.3" },
     { name = "requests", specifier = ">=2.34.2" },
     { name = "ruff", specifier = ">=0.16.6" },

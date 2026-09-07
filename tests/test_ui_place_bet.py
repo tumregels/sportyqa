@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from pytest_check import check
 
 from sportyqa.webdriver import BettingPage
 
@@ -44,19 +45,23 @@ def test_ui_happy_path_single_bet(clean_account, driver):
     with allure.step(f"Add HOME ({HOME} vs {AWAY}) and stake €{STAKE}"):
         page.select_odds(MATCH_ID, "HOME").fill_stake(STAKE)
 
-    with allure.step("Place the bet and read the receipt's Bet ID"):
+    with allure.step("Place the bet and wait for the success receipt"):
         page.place_bet()
         receipt = page.wait_for_receipt()
-        assert receipt.bet_id, "no Bet ID on the receipt"
+        check.is_true(bool(receipt.bet_id), f"no Bet ID on the receipt ({receipt.bet_id!r})")
 
     with allure.step("Assert the receipt keeps home-before-away order (per spec)"):
-        assert receipt.match.lower() == f"{HOME} vs {AWAY}".lower(), (
-            f"receipt teams {receipt.match!r} != 'Monaco vs Lyon' (BUG-08)"
+        check.equal(
+            receipt.match.lower(),
+            f"{HOME} vs {AWAY}".lower(),
+            f"receipt teams {receipt.match!r} != 'Monaco vs Lyon' (BUG-08)",
         )
 
     with allure.step(f"Assert receipt payout equals stake * odds = €{EXPECTED_PAYOUT}"):
-        assert receipt.payout == f"€{EXPECTED_PAYOUT}", (
-            f"receipt payout {receipt.payout!r} != €{EXPECTED_PAYOUT} (BUG-09)"
+        check.equal(
+            receipt.payout,
+            f"€{EXPECTED_PAYOUT}",
+            f"receipt payout {receipt.payout!r} != €{EXPECTED_PAYOUT} (BUG-09)",
         )
 
     with allure.step("Close the receipt to return to normal browsing"):
@@ -66,7 +71,9 @@ def test_ui_happy_path_single_bet(clean_account, driver):
         balance_after = page.header_balance()
         allure.attach(f"{balance_after:.2f}", "balance_after", allure.attachment_type.TEXT)
         expected = balance_before - STAKE_EUR
-        assert balance_after == expected, (
+        check.equal(
+            balance_after,
+            expected,
             f"UI balance {balance_after:.2f} != {balance_before:.2f} - {STAKE_EUR:.2f} "
-            f"= {expected:.2f} (BUG-10: header balance is not updated after a bet)"
+            f"= {expected:.2f} (BUG-10: header balance is not updated after a bet)",
         )
