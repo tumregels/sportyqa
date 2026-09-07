@@ -437,25 +437,33 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "allure-pytest" },
-    { name = "invoke" },
     { name = "pytest" },
     { name = "pytest-check" },
     { name = "python-dotenv" },
     { name = "requests" },
-    { name = "ruff" },
     { name = "selenium" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "invoke" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "allure-pytest", specifier = ">=2.16.0" },
-    { name = "invoke", specifier = ">=3.0.3" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-check", specifier = ">=2.9.1" },
     { name = "python-dotenv", specifier = ">=1.2.3" },
     { name = "requests", specifier = ">=2.34.2" },
-    { name = "ruff", specifier = ">=0.16.6" },
     { name = "selenium", specifier = ">=4.48.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "invoke", specifier = ">=2.2.0" },
+    { name = "ruff", specifier = ">=0.14.0" },
 ]
 
 [[package]]
