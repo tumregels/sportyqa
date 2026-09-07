@@ -1,4 +1,5 @@
 """Chrome driver factory + small page-objects for the bet-slip / receipt flow."""
+
 from __future__ import annotations
 
 import re
@@ -81,6 +82,7 @@ class BettingPage:
 
         On a fresh load the header briefly renders €0.00, so resolve once a positive amount is visible.
         """
+
         def _amount(driver) -> float:
             text = driver.find_element(*self.HEADER_BALANCE).text
             match = re.search(r"[\d.,]+", text)
@@ -98,7 +100,9 @@ class BettingPage:
             )
         )
         # Odds rows can sit under the sticky header; use a JS click to be safe.
-        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block:'center'});", btn
+        )
         self.driver.execute_script("arguments[0].click();", btn)
         return self
 

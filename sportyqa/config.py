@@ -1,10 +1,3 @@
-"""Runtime configuration.
-
-Values resolve in this precedence order:
-1. process environment variables,
-2. a local ``.env`` file (loaded via python-dotenv),
-3. built-in defaults for the deployed QA environment.
-"""
 from __future__ import annotations
 
 import os

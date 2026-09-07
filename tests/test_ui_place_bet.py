@@ -1,15 +1,16 @@
-"""UI end-to-end happy path — place a single bet (Part B).
+"""UI end-to-end happy path - place a single bet.
 
 A user bets a stake on the UI and checks the success receipt and, without
 refreshing, that the UI reflects the decreased funds.
 
 Assertions are spec-driven (no refresh after betting, as a real user would not
 refresh). The live build fails several of them:
-  * BUG-08 — the receipt reverses the teams ("Lyon vs Monaco").
-  * BUG-09 — the receipt payout (€20.00) is not stake x odds (€21.50).
-  * BUG-10 — the header balance stays stale at €120.00 after the bet (should
+  * BUG-08 - the receipt reverses the teams ("Lyon vs Monaco").
+  * BUG-09 - the receipt payout (€20.00) is not stake x odds (€21.50).
+  * BUG-10 - the header balance stays stale at €120.00 after the bet (should
              be €110.00).
 """
+
 from __future__ import annotations
 
 import allure
@@ -40,7 +41,9 @@ def test_ui_happy_path_single_bet(clean_account, driver):
 
     with allure.step("Record the balance the user sees before betting"):
         balance_before = page.header_balance()
-        allure.attach(f"{balance_before:.2f}", "balance_before", allure.attachment_type.TEXT)
+        allure.attach(
+            f"{balance_before:.2f}", "balance_before", allure.attachment_type.TEXT
+        )
 
     with allure.step(f"Add HOME ({HOME} vs {AWAY}) and stake €{STAKE}"):
         page.select_odds(MATCH_ID, "HOME").fill_stake(STAKE)
@@ -48,7 +51,9 @@ def test_ui_happy_path_single_bet(clean_account, driver):
     with allure.step("Place the bet and wait for the success receipt"):
         page.place_bet()
         receipt = page.wait_for_receipt()
-        check.is_true(bool(receipt.bet_id), f"no Bet ID on the receipt ({receipt.bet_id!r})")
+        check.is_true(
+            bool(receipt.bet_id), f"no Bet ID on the receipt ({receipt.bet_id!r})"
+        )
 
     with allure.step("Assert the receipt keeps home-before-away order (per spec)"):
         check.equal(
@@ -69,7 +74,9 @@ def test_ui_happy_path_single_bet(clean_account, driver):
 
     with allure.step("The UI balance must reflect the stake having been taken out"):
         balance_after = page.header_balance()
-        allure.attach(f"{balance_after:.2f}", "balance_after", allure.attachment_type.TEXT)
+        allure.attach(
+            f"{balance_after:.2f}", "balance_after", allure.attachment_type.TEXT
+        )
         expected = balance_before - STAKE_EUR
         check.equal(
             balance_after,

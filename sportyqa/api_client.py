@@ -1,9 +1,3 @@
-"""A small Requests wrapper around the betting API.
-
-Maps the endpoints from ``openapi.json`` to callable helpers while exposing
-raw status + body so tests see the *actual* (possibly buggy) behaviour rather
-than a re-encoding of the documented contract.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -1,4 +1,4 @@
-"""API test — bet placement validation & money rule (Part B).
+"""API test - bet placement validation & money rule.
 
 Covers two spec business rules against the betting API:
 
@@ -11,6 +11,7 @@ The last scenario is intentionally *red* against the live build because the
 server lets a second bet take the balance below zero (see BUG-02 in the bug
 report); the assertion records that regression. Anchored to TEST_PLAN SC-02.
 """
+
 from __future__ import annotations
 
 import allure
@@ -50,7 +51,9 @@ def test_place_bet_validation_and_money_rule(api, clean_account):
     with allure.step("Invalid selection is rejected with 422"):
         for bad in ("TIE", "home", ""):
             status, body = api.place_bet(match_id, bad, STAKE_MIN)
-            assert status == 422, f"expected 422 for selection={bad!r}, got {status}: {body}"
+            assert status == 422, (
+                f"expected 422 for selection={bad!r}, got {status}: {body}"
+            )
             assert body.get("error") == "invalid_selection", body
 
     with allure.step("Below-minimum stake is rejected with 422"):
@@ -58,7 +61,9 @@ def test_place_bet_validation_and_money_rule(api, clean_account):
         assert status == 422, f"expected 422 for stake below min, got {status}: {body}"
         assert body.get("error") == "invalid_stake_min", body
 
-    with allure.step("Bet 40 then 100: a second uncovered bet must not overdraw the balance"):
+    with allure.step(
+        "Bet 40 then 100: a second uncovered bet must not overdraw the balance"
+    ):
         # Reset to a known baseline so this scenario is deterministic.
         with allure.step("Reset account to the clean baseline"):
             api.reset_balance()

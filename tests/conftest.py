@@ -1,4 +1,3 @@
-"""Shared pytest fixtures for the sportyqa test suite."""
 from __future__ import annotations
 
 import time
