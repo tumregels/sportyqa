@@ -11,7 +11,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # Load .env (does not override already-set OS env vars).
 load_dotenv(PROJECT_ROOT / ".env", override=False)
 
-API_BASE_URL: str = os.getenv("API_BASE_URL").rstrip("/")
+API_BASE_URL: str = (
+    os.getenv("API_BASE_URL") or "https://qae-assignment-tau.vercel.app"
+).rstrip("/")
 QA_USER_ID: str = os.getenv("QA_USER_ID")
 UI_URL: str = f"{API_BASE_URL}/?user-id={QA_USER_ID}"
 
